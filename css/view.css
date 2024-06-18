@@ -1,0 +1,136 @@
+:root {
+  --primaryColor: #6a6fed;
+  --secondaryColor: #888efe;
+  --bodyColor: #edeef3;
+  --lightGreyColor: #f4f5fa;
+  --whiteColor: #ffffff;
+  --blackColor: #222;
+  --lightBlackColor: #454955;
+  --darkPurpleColor: #2c2f4e;
+  --redColor: rgb(255, 55, 0);
+  --greenColor: rgb(89, 183, 110);
+  --lightBlue: rgb(174, 193, 230);
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: poppins;
+  background-color: var(--bodyColor);
+}
+.view_container{
+  background-color: var(--whiteColor);
+  padding: 20px;
+}
+.view_detail {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  padding: 20px 0;
+}
+.doctor_details {
+  background-color: var(--lightGreyColor);
+  padding: 20px 50px;
+  width: 420px;
+  border-radius: 5px;
+}
+.doctor_img img {
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+}
+
+.doctor_info div {
+  display: flex;
+  align-items: center;
+  color: var(--lightBlackColor);
+  font-size: 15px;
+}
+.doctor_info div i {
+  margin-right: 10px;
+}
+.schedule_details {
+  /* background-color: red; */
+  padding: 20px;
+}
+.schedule_details h2 {
+  display: flex;
+  justify-content: center;
+  color: var(--lightBlackColor);
+}
+.time_schedule {
+  /* background-color: rgb(65, 65, 150); */
+  margin-top: 20px;
+}
+.schedule_details table td {
+  cursor: pointer;
+  border: none;
+}
+td button{
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+.schedule_details table td input {
+  font-size: 18px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+}
+.patient_details {
+  /* background-color: rgb(111, 255, 0); */
+  margin-top: 20px;
+}
+.field {
+  /* background-color: rgb(101, 83, 83); */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 650px;
+}
+.field .input {
+  /* background-color: yellow; */
+  width: 200px;
+}
+.field input,
+select {
+  border: 1px solid var(--blackColor);
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: 200px;
+}
+.message {
+  background-color: var(--greenColor);
+  font-size: 15px;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: var(--whiteColor);
+  margin-top: 10px;
+}
+.error {
+  background-color: var(--redColor);
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 0 10px;
+  margin-top: 10px;
+  color: var(--whiteColor);
+}
+/* CSS styles for different time slot statuses */
+.available {
+  background-color: var(--greenColor); /* Light green background for available slots */
+}
+
+.booked {
+  background-color: var(--redColor); /* Light red background for booked slots */
+}
+
+.unavailable {
+  background-color: var(--lightGreyColor); /* Light gray background for empty (unavailable) slots */
+}

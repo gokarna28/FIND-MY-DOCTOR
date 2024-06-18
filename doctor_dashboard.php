@@ -31,7 +31,7 @@ if (isset($_SESSION['doctor_id'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>doctor dashboard</title>
-    <link rel="stylesheet" href="css/doctors.css" />
+    <link rel="stylesheet" href="css/doctor.css" />
     <!-- Link to Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- Import Google font - Poppins  -->
@@ -220,7 +220,6 @@ if (isset($_SESSION['doctor_id'])) {
                             ?>
                             <div class="details_container">
                                 <div class="patient_details">
-                                    <h3>Patient Details</h3>
                                     <div class="detils">
                                         <p>Name:</p>
                                         <?php echo $row_appointment['patient_name'] ?>
@@ -235,7 +234,6 @@ if (isset($_SESSION['doctor_id'])) {
                                     </div>
                                 </div>
                                 <div class="appointment_details">
-                                    <h3>Appointment Details</h3>
 
                                     <div class="detils">
                                         <p>Date:</p>
@@ -301,7 +299,6 @@ if (isset($_SESSION['doctor_id'])) {
                         ?>
                         <div class="details_container">
                             <div class="patient_details">
-                                <h3>Patient Details</h3>
                                 <div class="detils">
                                     <p>Name:</p>
                                     <?php echo $row_appointment['patient_name'] ?>
@@ -316,7 +313,6 @@ if (isset($_SESSION['doctor_id'])) {
                                 </div>
                             </div>
                             <div class="appointment_details">
-                                <h3>Appointment Details</h3>
 
                                 <div class="detils">
                                     <p>Date:</p>

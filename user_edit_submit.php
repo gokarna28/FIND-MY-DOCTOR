@@ -22,7 +22,7 @@ if (isset($_POST['update_btn'])) {
         $update_data = mysqli_query($conn, $update_noimage);
 
         if ($update_data) {
-            //$success = "successfully updated without image";
+            echo "<script>alert('Changes saved successfully')</script>";
         } else {
             $error = "failed to update" . mysqli_error($conn);
         }
@@ -33,7 +33,8 @@ if (isset($_POST['update_btn'])) {
         $update_idata = mysqli_query($conn, $update_image);
 
         if ($update_idata) {
-            // $success= "successfully updated with image";
+            echo "<script>alert('Changes saved successfully')</script>";
+
         } else {
             $error = "failed to update" . mysqli_error($conn);
         }

@@ -71,7 +71,7 @@ if (isset($_SESSION['insert_success']) && $_SESSION['insert_success'] === true) 
 
             </div>
             <div class="forgot_pass">
-                <a href="#">Forgot Password</a>
+                <!-- <a href="#">Forgot Password</a> -->
             </div>
 
             <div class="submit_btn">

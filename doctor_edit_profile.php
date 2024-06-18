@@ -1,5 +1,6 @@
 <?php
 require ("doctor_edit_submit.php");
+require("doctor_change_password.php");
 include ("connection.php");
 
 $DID = $_GET['did'];
@@ -16,7 +17,7 @@ $row_doctor = mysqli_fetch_assoc($id_data);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>doctor edit profile</title>
-    <link rel="stylesheet" href="css/doctor_edit.css" />
+    <link rel="stylesheet" href="css/doctor_edits.css" />
     <!-- Link to Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- Import Google font - Poppins  -->
@@ -37,18 +38,15 @@ $row_doctor = mysqli_fetch_assoc($id_data);
 
         <div class="profile_wrapper">
             <div class="sidebar">
-                <div class="side_menu active">
+                <div class="side_menu active" id="edit" onclick="showDashboard()">
                     <i class="fa-solid fa-user"></i>
                     <p>Edit Profile</p>
                 </div>
-                <div class="side_menu">
+                <div class="side_menu" id="password" onclick="showPassword()">
                     <i class="fa-solid fa-lock"></i>
                     <p>Change Password</p>
                 </div>
-                <div class="side_menu">
-                    <i class="fa-solid fa-calendar-check"></i>
-                    <p>Appointments</p>
-                </div>
+
                 <div class="line_container">
                     <div class="line"></div>
                 </div>
@@ -128,6 +126,27 @@ $row_doctor = mysqli_fetch_assoc($id_data);
                 </div>
 
             </div>
+            <div class="change_password hide">
+                <h2>Change Password</h2>
+                <div class="form_container">
+                    <!-- Reset Password form -->
+                    <div class="Reset_password">
+                        <form action="" method="post">
+                            <input type="hidden" name="did" value="<?php echo $row_doctor['did'] ?>">
+                            <div class="input_field">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="text" name="new_password" placeholder="Create new password" required><br>
+                            </div>
+                            <div class="input_field">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="text" name="new_password_confirm" placeholder="Retype your password"
+                                    required>
+                            </div>
+                            <button type="submit" name="save">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
 
         </div>
@@ -138,6 +157,21 @@ $row_doctor = mysqli_fetch_assoc($id_data);
 
         inputFile.onchange = function () {
             profilePic.src = URL.createObjectURL(inputFile.files[0]);
+        }
+
+
+        function showDashboard() {
+            document.querySelector("#edit").classList.add("active");
+            document.querySelector("#password").classList.remove("active");
+            document.querySelector(".edit_wrapper").classList.remove("hide");
+            document.querySelector(".change_password").classList.add("hide");
+
+        }
+        function showPassword() {
+            document.querySelector("#edit").classList.remove("active");
+            document.querySelector("#password").classList.add("active");
+            document.querySelector(".edit_wrapper").classList.add("hide");
+            document.querySelector(".change_password").classList.remove("hide");
         }
     </script>
 </body>

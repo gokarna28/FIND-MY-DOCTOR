@@ -130,7 +130,30 @@
         }
 
         table {
-            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+
+            td,
+            th {
+                border-bottom: 0.5px solid var(--lightBlackColor);
+                padding: 8px;
+            }
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
         }
 
         .blue {
@@ -170,7 +193,11 @@
                     //retrive data from doctor table
                     include ("connection.php");
 
-                    $doctor_detail = "SELECT * FROM doctor";
+                    $doctor_detail = "SELECT * FROM doctor
+                    ORDER BY  CASE 
+                    WHEN status = 'pending' THEN 1 
+                    ELSE 2 
+                    END";
                     $doctor_data = mysqli_query($conn, $doctor_detail);
                     if (mysqli_num_rows($doctor_data) > 0) {
                         while ($result_doctor = mysqli_fetch_assoc($doctor_data)) {

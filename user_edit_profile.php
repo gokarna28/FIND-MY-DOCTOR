@@ -2,6 +2,7 @@
 include ("connection.php");
 require ("user_edit_submit.php");
 require ("appointment_cancel.php");
+require ("user_reset_pass.php");
 
 session_start();
 if (isset($_SESSION['user_id'])) {
@@ -20,9 +21,6 @@ $user_query = "SELECT * FROM user WHERE uid='$UID'";
 $id_data = mysqli_query($conn, $user_query);
 $row_user = mysqli_fetch_assoc($id_data);
 
-//this is for otp to reset password
-$otp = rand(00000, 99999);
-//echo $otp;
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +30,7 @@ $otp = rand(00000, 99999);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>user profile</title>
-    <link rel="stylesheet" href="css/user_edits.css" />
+    <link rel="stylesheet" href="css/user_edit.css" />
     <!-- Link to Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- Import Google font - Poppins  -->
@@ -147,47 +145,30 @@ $otp = rand(00000, 99999);
                             <div class="details_wrapper">
                                 <div class="patient_appointment">
 
-                                    <div class="patient_details">
-                                        <h4>Patient Details</h4>
+                                    <div class="doctor_details">
+                                        <img src="<?php echo $row_appointment['doctor_image'] ?>">
                                         <div class="details">
-                                            <p>Name:</p>
-                                            <?php echo $row_appointment['patient_name'] ?>
+                                            <?php echo $row_appointment['doctor_name'] ?><br>
+                                            <p style="color:#454955;"><?php echo $row_appointment['speciality'] ?></p>
                                         </div>
-                                        <div class="details">
-                                            <p>Age:</p>
-                                            <?php echo $row_appointment['patient_age'] ?>
-                                        </div>
-                                        <div class="details">
-                                            <p>Gender:</p>
-                                            <?php echo $row_appointment['patient_gender'] ?>
-                                        </div>
+
                                     </div>
                                     <div class="appointment_details">
-                                        <h4>Appointment Details</h4>
                                         <div class="details">
-                                            <p>Date:</p>
                                             <?php echo $row_appointment['date'] ?>
                                         </div>
                                         <div class="details">
-                                            <p> Time:</p>
                                             <?php echo $row_appointment['time'] ?>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="doctor_details">
-                                    <h4>Doctor Details</h4>
+
+                                <div class="patient_details">
                                     <div class="details">
-                                        <p>Name:</p>
-                                        <?php echo $row_appointment['doctor_name'] ?>
+                                        <?php echo $row_appointment['clinic'] ?><br>
+                                        <?php echo $row_appointment['clinic_address'] ?>
                                     </div>
-                                    <div class="details">
-                                        <p>Speciality:</p>
-                                        <?php echo $row_appointment['speciality'] ?>
-                                    </div>
-                                    <div class="details">
-                                        <p>Email:</p>
-                                        <?php echo $row_appointment['doctor_email'] ?>
-                                    </div>
+
                                 </div>
                                 <div class="cancel_btn">
                                     <form action="" method="post">
@@ -221,11 +202,15 @@ $otp = rand(00000, 99999);
                     <?php
                     $user_id = $row_user['uid'];
                     //echo $user_id;
-                    $appointment_query = "SELECT a.*, d.doctor_name, d.speciality, d.doctor_email
+                    $appointment_query = "SELECT a.*, d.doctor_name, d.speciality, d.doctor_email,d.doctor_image, d.clinic, d.clinic_address
                     FROM appointment AS a
                     INNER JOIN doctor AS d ON a.doctor_id = d.did 
-                    WHERE a.user_id = $user_id AND a.status = 'completed' 
-                    ORDER BY a.date ASC";
+                    WHERE a.user_id = $user_id  
+                    ORDER BY 
+                    CASE 
+                    WHEN a.status = 'booked' THEN 1 
+                    ELSE 2 
+                    END";
                     $appointment_data = mysqli_query($conn, $appointment_query);
                     $total = mysqli_num_rows($appointment_data);
                     //echo $total;
@@ -237,51 +222,32 @@ $otp = rand(00000, 99999);
                                 <div class="details_wrapper">
                                     <div class="patient_appointment">
 
-                                        <div class="patient_details">
-                                            <h4>Patient Details</h4>
+                                        <div class="doctor_details">
+                                        <img src="<?php echo $row_appointment['doctor_image'] ?>">
+
                                             <div class="details">
-                                                <p>Name:</p>
-                                                <?php echo $row_appointment['patient_name'] ?>
-                                            </div>
-                                            <div class="details">
-                                                <p>Age:</p>
-                                                <?php echo $row_appointment['patient_age'] ?>
-                                            </div>
-                                            <div class="details">
-                                                <p>Gender:</p>
-                                                <?php echo $row_appointment['patient_gender'] ?>
+                                                <?php echo $row_appointment['doctor_name'] ?><br>
+                                                <p> <?php echo $row_appointment['speciality'] ?></p>
                                             </div>
                                         </div>
                                         <div class="appointment_details">
-                                            <h4>Appointment Details</h4>
                                             <div class="details">
-                                                <p>Date:</p>
                                                 <?php echo $row_appointment['date'] ?>
                                             </div>
                                             <div class="details">
-                                                <p> Time:</p>
                                                 <?php echo $row_appointment['time'] ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="doctor_details">
-                                        <h4>Doctor Details</h4>
-                                        <div class="details">
-                                            <p>Name:</p>
-                                            <?php echo $row_appointment['doctor_name'] ?>
-                                        </div>
-                                        <div class="details">
-                                            <p>Speciality:</p>
-                                            <?php echo $row_appointment['speciality'] ?>
-                                        </div>
-                                        <div class="details">
-                                            <p>Email:</p>
-                                            <?php echo $row_appointment['doctor_email'] ?>
-                                        </div>
 
+                                    <div class="patient_details">
+                                        <div class="details">
+                                            <?php echo $row_appointment['clinic'] ?><br>
+                                            <?php echo $row_appointment['clinic_address'] ?>
+                                        </div>
+                                        
                                     </div>
                                     <div class="details" style="color:green;">
-                                        <p>Status:</p>
                                         <?php echo $row_appointment['status']; ?>
                                     </div>
 
@@ -300,53 +266,28 @@ $otp = rand(00000, 99999);
             <!-- change Passfword section -->
             <div class="password hide">
                 <h2>Change Password</h2>
-                <div class="form container">
-                    <!-- OTP form -->
-                    <div class="otp_form">
-                        <form id="otpForm" method="post">
-                            <input type="hidden" name="otp" value="<?php echo $otp ?>">
-                            <input type="text" name="user_email" placeholder="Enter your email.">
-                            <button type="button" id="submitBtn">Continue</button>
-                            <div id="response"></div>
-                        </form>
-                    </div>
-
+                <div class="form_container">
                     <!-- Reset Password form -->
-                    <div class="Reset_password hide">
+                    <div class="Reset_password">
                         <form action="" method="post">
-                            <input type="text" name="new_password" placeholder="Create new password">
-                            <input type="text" name="new_password_confirm" placeholder="Retype your password">
-                            <button>Save Change</button>
+                            <input type="hidden" name="uid" value="<?php echo $row_user['uid'] ?>">
+                            <div class="input_field">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="text" name="new_password" placeholder="Create new password" required><br>
+                            </div>
+                            <div class="input_field">
+                                <i class="fa-solid fa-lock"></i>
+                                <input type="text" name="new_password_confirm" placeholder="Retype your password"
+                                    required>
+                            </div>
+                            <button type="submit" name="save">Save</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        //otp submition form reset password
 
-        $('#submitBtn').click(function (e) {
-            e.preventDefault();
-            //console.log("clicked");
-            var formData = $('#otpForm').serialize(); // Serialize form data
-
-            $.ajax({
-                type: 'POST',
-                url: 'user_reset_password_otp.php',
-                data: formData,
-                success: function (response) {
-                    $('#response').html(response); // Display response
-                },
-                error: function () {
-                    $('#response').html('Error occurred. Please try again.'); // Display error message
-                }
-            });
-        });
-    </script>
     <script>
 
         //confiramation cancel appointment

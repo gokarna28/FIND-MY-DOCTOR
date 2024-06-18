@@ -137,6 +137,7 @@ if (isset($_POST['add_btn'])) {
 
         .admin_wrapper {
             display: flex;
+            justify-content: center;
         }
 
         .admin_details {
@@ -150,17 +151,30 @@ if (isset($_POST['add_btn'])) {
         }
 
         table {
-            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+
+            td,
+            th {
+                border-bottom: 0.5px solid var(--lightBlackColor);
+                padding: 8px;
+            }
         }
 
-        th {
-            color: var(--lightBlackColor);
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
         }
 
-        table td {
-            /* border: 1px solid black; */
-            padding: 5px 20px;
-            font-size: 16px;
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
         }
 
         .admin_image {
@@ -222,8 +236,13 @@ if (isset($_POST['add_btn'])) {
             padding: 20px;
             border-radius: 15px;
             width: 650px;
-            height: 100%;
+            height: 300px;
+            margin-top: 10%;
+            position: absolute;
             margin-left: 20px;
+            i{
+                font-size: 30px;
+            }
         }
 
         .add_admin h2 {
@@ -278,7 +297,13 @@ if (isset($_POST['add_btn'])) {
             padding: 5px 10px;
             background-color: var(--primaryColor);
             color: var(--whiteColor);
-            border: 1px solid black;
+            border: none;
+            cursor: pointer;
+            transition: background 0.5s;
+        }
+
+        .add_btn button:hover {
+            background-color: var(--greenColor);
         }
 
         .hide {
@@ -297,6 +322,12 @@ if (isset($_POST['add_btn'])) {
             color: var(--lightBlackColor);
             padding: 5px 10px;
         }
+        .add{
+            font-size: 30px;
+            display: flex;
+            justify-content: right;
+            margin-bottom: 10px
+        }
     </style>
 </head>
 
@@ -310,6 +341,7 @@ if (isset($_POST['add_btn'])) {
             <!-- admin_details -->
             <div class="admin_details">
                 <h2>Admin Users</h2>
+                <div class="add"><i class="fa-solid fa-plus" onclick="addForm()"></i></div>
                 <table>
                     <tr>
                         <th>Name</th>
@@ -352,10 +384,12 @@ if (isset($_POST['add_btn'])) {
                                 <td>
                                     <div class="action_btn">
                                         <div class="edit_btn">
-                                            <a href="edit_admin.php?admin_id=<?php echo $row_admin['admin_id']?>"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            <a href="edit_admin.php?admin_id=<?php echo $row_admin['admin_id'] ?>"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
                                         </div>
                                         <div class="delete_btn">
-                                            <a href="delete_admin.php?admin_id=<?php echo $row_admin['admin_id']?>"><i class="fa-solid fa-trash" onclick="return confirmDelete()"></i></a>
+                                            <a href="delete_admin.php?admin_id=<?php echo $row_admin['admin_id'] ?>"><i
+                                                    class="fa-solid fa-trash" onclick="return confirmDelete()"></i></a>
                                         </div>
                                     </div>
                                 </td>
@@ -373,7 +407,8 @@ if (isset($_POST['add_btn'])) {
 
 
             <!-- add admin form -->
-            <div class="add_admin">
+            <div class="add_admin hide">
+            <i class="fa-solid fa-xmark" onclick="hideForm()"></i>
                 <h2>Add Admin User</h2>
                 <form action="" method="post" autocomplete="off">
                     <div class="message">
@@ -431,9 +466,14 @@ if (isset($_POST['add_btn'])) {
     </div>
 
     <script>
-
+function addForm(){
+    document.querySelector(".add_admin").classList.remove("hide");
+}
+function hideForm(){
+    document.querySelector(".add_admin").classList.add("hide");
+}
         //confirmation delte admin user
-        function confirmDelete(){
+        function confirmDelete() {
             return confirm("Are you sure, you want to delete the user.");
         }
         //hide show password

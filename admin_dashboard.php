@@ -29,7 +29,7 @@ if (isset($_SESSION['admin_id'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin dashboard</title>
-    <link rel="stylesheet" href="css/admins.css" />
+    <link rel="stylesheet" href="css/admin.css" />
     <!-- Link to Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- Import Google font - Poppins  -->
@@ -92,29 +92,28 @@ if (isset($_SESSION['admin_id'])) {
 
     <!-- Main section -->
     <div class="main_section">
+
         <div class="header">
             <div class="search">
                 <input type="text" placeholder="search here">
                 <button><i class="fa-solid fa-magnifying-glass"></i>Search</button>
             </div>
-            <a href="admin_profile_edit.php?admin_id=<?php echo $admin_data['admin_id'] ?>">
-                <div class="profile_btn">
-                    <?php
-                    if ($admin_data['admin_image'] == null || $admin_data['admin_image'] == '') {
-                        ?>
-                        <div class="letter">
-                            <?php echo substr($admin_data['admin_name'], 0, 1); ?>
-                        </div>
-                        <?php
-                    } else {
-                        ?>
-                        <img src="<?php echo $admin_data['admin_image'] ?>">
-                        <?php
-                    }
+            <div class="profile_btn">
+                <?php
+                if ($admin_data['admin_image'] == null || $admin_data['admin_image'] == '') {
                     ?>
-                    <p><?php echo $admin_data['admin_name'] ?></p>
-                </div>
-            </a>
+                    <div class="letter">
+                        <?php echo substr($admin_data['admin_name'], 0, 1); ?>
+                    </div>
+                    <?php
+                } else {
+                    ?>
+                    <img src="<?php echo $admin_data['admin_image'] ?>">
+                    <?php
+                }
+                ?>
+                <p><?php echo $admin_data['admin_name'] ?></p>
+            </div>
 
         </div>
 
@@ -190,21 +189,11 @@ if (isset($_SESSION['admin_id'])) {
                     <h3>Doctor Request</h3>
                     <table>
                         <tr>
-                            <th style="font-size:15px; color:#454955; font-weight:500;">Name</th>
-                            <th style="font-size:15px; color:#454955; font-weight:500;">NMC</th>
-                            <th style="font-size:15px; color:#454955; font-weight:500;">Action</th>
+                            <th>Name</th>
+                            <th>NMC</th>
+                            <th>Action</th>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="lines"></div>
-                            </td>
-                            <td>
-                                <div class="lines"></div>
-                            </td>
-                            <td>
-                                <div class="lines"></div>
-                            </td>
-                        </tr>
+
                         <?php
                         $request_query = "SELECT * FROM doctor WHERE status='pending'";
                         $request_data = mysqli_query($conn, $request_query);
@@ -264,14 +253,17 @@ if (isset($_SESSION['admin_id'])) {
                     <div style="width: 500px;">
                         <canvas id="myChart"></canvas>
                     </div>
-
                     <script>
-                        const labels = ['jan', 'feb', 'march', 'april', 'may'];
+                         const userTotal = <?php echo $user_total; ?>;
+                         const doctorTotal = <?php echo $doctor_total; ?>;
+                         const appointmentTotal = <?php echo  $appointment_total; ?>;
+                         const adminTotal = <?php echo  $admin_total; ?>;
+                        const labels = ['Members', 'Doctors', 'Appointments', 'Admin users'];
                         const data = {
                             labels: labels,
                             datasets: [{
-                                label: 'My First Dataset',
-                                data: [65, 59, 80, 81, 56, 55, 40],
+                                label: 'Data analysis',
+                                data: [userTotal, doctorTotal, appointmentTotal, adminTotal],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(255, 159, 64, 0.2)',
@@ -321,7 +313,11 @@ if (isset($_SESSION['admin_id'])) {
                 <?php
                 $appointment_query = "SELECT * 
                 FROM doctor as d
-                INNER JOIN appointment as a ON d.did=a.doctor_id";
+                INNER JOIN appointment as a ON d.did=a.doctor_id
+                ORDER BY  CASE 
+                    WHEN a.status = 'booked' THEN 1 
+                    ELSE 2 
+                    END";
                 $appointment_data = mysqli_query($conn, $appointment_query);
                 if (mysqli_num_rows($appointment_data) > 0) {
                     while ($result_appointment = mysqli_fetch_assoc($appointment_data)) {
@@ -338,7 +334,6 @@ if (isset($_SESSION['admin_id'])) {
                                 </div>
                             </div>
                             <div class="patient_details">
-                                <h4>Patient Details</h4>
                                 <div class="data">
                                     Name:
                                     <p><?php echo $result_appointment['patient_name']; ?></p>
@@ -354,7 +349,6 @@ if (isset($_SESSION['admin_id'])) {
 
                             </div>
                             <div class="date_time">
-                                <h4>Appointment Details</h4>
                                 <div class="data">
                                     Date:
                                     <p><?php echo $result_appointment['date']; ?></p>
@@ -363,15 +357,9 @@ if (isset($_SESSION['admin_id'])) {
                                     Time:
                                     <p><?php echo $result_appointment['time']; ?></p>
                                 </div>
-                                <div class="data">
-                                    Clinic:
-                                    <p><?php echo $result_appointment['clinic']; ?></p>
-                                </div>
-                                <div class="data">
-                                    Clinic Location:
-                                    <p><?php echo $result_appointment['clinic_address']; ?></p>
-                                </div>
-
+                            </div>
+                            <div class="status">
+                                <p><?php echo $result_appointment['status'] ?></p>
                             </div>
                         </div>
                         <?php

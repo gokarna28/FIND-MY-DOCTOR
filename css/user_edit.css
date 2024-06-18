@@ -1,0 +1,358 @@
+:root {
+  --primaryColor: #1c5f5f;
+  --secondaryColor: #d6e7d5;
+  --bodyColor: #edeef3;
+  --lightGreyColor: #f4f5fa;
+  --whiteColor: #ffffff;
+  --blackColor: #222;
+  --lightBlackColor: #454955;
+  --darkPurpleColor: #2c2f4e;
+  --redColor: rgb(255, 55, 0);
+  --greenColor: rgb(89, 183, 110);
+  --lightBlue: rgb(174, 193, 230);
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: poppins;
+  background-color: var(--bodyColor);
+}
+.hide {
+  display: none;
+}
+.profile_container {
+  background-color: var(--whiteColor);
+  border-radius: 12px;
+  width: 100%;
+  padding: 20px;
+  height: 695px;
+}
+
+.profile_wrapper {
+  display: flex;
+  /* background-color: gray; */
+  padding: 20px;
+}
+.sidebar {
+  /* background-color: red; */
+  width: 300px;
+  height: auto;
+}
+.side_menu {
+  display: flex;
+  align-items: center;
+  /* background-color: yellow; */
+  margin-top: 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.side_menu:hover {
+  border-radius: 100px;
+  border: 2px solid var(--primaryColor);
+}
+.side_menu p,
+i {
+  font-size: 20px;
+  color: var(--lightBlackColor);
+}
+a {
+  text-decoration: none;
+}
+.side_menu i {
+  margin-right: 10px;
+}
+.line_container {
+  display: flex;
+  justify-content: center;
+  /* background-color: yellow; */
+  padding: 30px 0;
+}
+.line {
+  height: 1.5px;
+  width: 250px;
+  border-radius: 100px;
+  background-color: var(--bodyColor);
+}
+/* edit profile */
+.edit_wrapper {
+  /* background-color: var(--greenColor); */
+  padding: 20px 100px;
+}
+.edit_wrapper h2 {
+  color: var(--lightBlackColor);
+}
+.img_container {
+  /* background-color: grey; */
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 0;
+}
+.profile_image {
+  background-color: var(--whiteColor);
+  width: 150px;
+  height: 150px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(1, 1, 1, 0.2) 0px 2px 10px 2px;
+}
+.upload_btn {
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  box-shadow: rgba(1, 1, 1, 0.2) 0px 2px 10px 2px;
+  background-color: var(--whiteColor);
+  cursor: pointer;
+}
+.upload_btn label {
+  cursor: pointer;
+}
+.upload_btn input {
+  display: none;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--lightGreyColor);
+}
+.field {
+  /* background-color: yellow; */
+  margin-top: 10px;
+}
+.name label {
+  font-size: 15px;
+}
+.name input {
+  width: 320px;
+  border: none;
+  margin-left: 20px;
+  font-size: 18px;
+  background-color: transparent;
+  outline: none;
+}
+.save_btn {
+  /* background-color: yellow; */
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+.save_btn button {
+  font-size: 20px;
+  padding: 10px 0;
+  width: 350px;
+  background-color: var(--primaryColor);
+  border: none;
+  color: var(--whiteColor);
+  border-radius: 5px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.save_btn button:hover {
+  background-color: var(--greenColor);
+}
+.active {
+  border-radius: 100px;
+  border: 2px solid var(--primaryColor);
+}
+
+.success_msg {
+  background-color: var(--greenColor);
+  border-radius: 5px;
+  font-size: 15px;
+  color: var(--whiteColor);
+  padding: 0 10px;
+}
+.error_msg {
+  background-color: var(--redColor);
+  border-radius: 5px;
+  font-size: 15px;
+  color: var(--whiteColor);
+  padding: 0 10px;
+}
+
+/* appointment container */
+.appointment_container {
+  /* background-color: red; */
+  padding: 20px;
+  width: 90%;
+  height: 100%;
+  margin-left: 20px;
+}
+.appointment_wrapper {
+  background-color: var(--lightGreyColor);
+  padding: 10px;
+  border-radius: 15px;
+  width: 90%;
+  height: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+}
+.appointment_wrapper:hover {
+  z-index: 100;
+  box-shadow: rgba(1, 1, 1, 0.2) 0px 2px 10px 2px;
+}
+.appointment_wrapper_complete {
+  background-color: var(--lightGreyColor);
+  padding: 10px;
+  border-radius: 15px;
+  width: 90%;
+  margin-top: 20px;
+}
+.appointment_wrapper_complete:hover {
+  z-index: 100;
+  box-shadow: rgba(1, 1, 1, 0.2) 0px 2px 10px 2px;
+}
+
+.details_wrapper {
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.patient_appointment {
+  /* background-color: yellow; */
+  display: flex;
+}
+/* .patient_details{
+  background-color: lightblue;
+} */
+.appointment_details {
+  /* background-color: green; */
+  margin-left: 20px;
+}
+.details {
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  font-weight: 500;
+}
+
+.doctor_details {
+  /* background-color: orange; */
+  display: flex;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    margin-right: 10px;
+  }
+}
+.cancel_btn {
+  /* background-color: yellowgreen; */
+  margin-right: 50px;
+}
+.cancel_btn button {
+  border-radius: 5px;
+  border: none;
+  padding: 5px 10px;
+  background-color: var(--redColor);
+  color: var(--whiteColor);
+  font-size: 20px;
+  transition: background-color 0.5s;
+  cursor: pointer;
+}
+.cancel_btn button:hover {
+  background-color: orange;
+}
+
+.completed_appointments {
+  /* background-color: red; */
+  width: 90%;
+  height: 600px;
+  padding: 0 40px;
+}
+.completed_appointments .back_btn {
+  display: flex;
+  justify-content: right;
+}
+.complete_wrapper {
+  /* background-color: yellow; */
+  height: 550px;
+  overflow: hidden;
+  overflow-y: scroll;
+  padding: 0 20px;
+}
+.completed_appointments .back_btn button {
+  font-size: 18px;
+  padding: 2px 10px;
+  margin: 10px 0;
+  margin-right: 50px;
+}
+.all_appointments {
+  /* background-color: red; */
+  display: flex;
+  justify-content: right;
+  padding: 0 120px;
+}
+.all_appointments button {
+  font-size: 20px;
+  border: none;
+  background-color: var(--primaryColor);
+  color: white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.password {
+  /* background-color: red; */
+  padding: 20px;
+  .form_container {
+    /* background-color: yellow; */
+    padding: 20px;
+    .input_field {
+      background-color: red;
+      margin-top: 10px;
+      display: flex;
+      font-size: 20px;
+      border: none;
+      background-color: rgb(235, 233, 233);
+      align-items: center;
+      padding: 5px;
+      border-radius: 5px;
+      width: 350px;
+      i {
+        margin-right: 10px;
+      }
+      input {
+        font-size: 20px;
+        border: none;
+        background-color: transparent;
+        padding: 5px 10px;
+        width: 300px;
+      }
+    }
+    button {
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      width: 100px;
+      background-color: var(--primaryColor);
+      color: white;
+      transition: background-color 0.5s;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: var(--greenColor);
+    }
+  }
+}

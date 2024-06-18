@@ -160,6 +160,32 @@
         .details_wrapper button a {
             color: var(--lightBlackColor);
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+
+            td,
+            th {
+                border-bottom: 0.5px solid var(--lightBlackColor);
+                padding: 8px;
+            }
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+        table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
     </style>
 </head>
 
