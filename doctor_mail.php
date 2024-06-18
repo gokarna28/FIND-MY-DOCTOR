@@ -36,7 +36,7 @@ unset($_SESSION['image']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP</title>
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <!-- Import Google font - Poppins  -->
     <link rel="stylesheet"
@@ -51,7 +51,7 @@ unset($_SESSION['image']);
 <body>
     <div class="otp_form">
     <div class="back_btn">
-            <button><a href="#"><i class="fa-solid fa-arrow-left"></i></a></button>
+            <button><a href="login.php"><i class="fa-solid fa-arrow-left"></i></a></button>
         </div>
         <h2>Verify OTP</h2><br>
         <form action="" method="post" autocomplete="off">

@@ -40,17 +40,23 @@ if (isset($_POST['set_btn'])) {
 
         // Build values string for time slots
         $timeSlotsString = "'" . implode("', '", $timeSlots) . "'";
-
-        // Construct the INSERT query with dynamic columns and values
-        $schedule_query = "INSERT INTO schedule (doctor_id, date, $slotColumns) 
+        $check = "SELECT * FROM schedule WHERE date='$date'";
+        $data = mysqli_query($conn, $check);
+        if (mysqli_num_rows($data) == 1) {
+            echo "<script>alert('shcedule is already set on this date')</script>";
+        } else {
+            // Construct the INSERT query with dynamic columns and values
+            $schedule_query = "INSERT INTO schedule (doctor_id, date, $slotColumns) 
                            VALUES ('$doctor_id', '$date', $timeSlotsString)";
 
-        // Execute the INSERT query
-        $set_date = mysqli_query($conn, $schedule_query);
-        if ($set_date) {
-            $success_msg = "Successfully inserted";
-        } else {
-            echo "Insertion failed: " . mysqli_error($conn);
+            // Execute the INSERT query
+            $set_date = mysqli_query($conn, $schedule_query);
+            if ($set_date) {
+                $success_msg = "Successfully set";
+            } else {
+                echo "Insertion failed: " . mysqli_error($conn);
+            }
+
         }
     } else {
         $error_msg = "Error: No time slots selected";

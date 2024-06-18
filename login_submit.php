@@ -19,10 +19,7 @@ if (isset($_POST['login_submit'])) {
     // Email validation
     if (empty($email)) {
         $email_error = "Email is required*";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $email_error = "Invalid email format";
     }
-
     // Password validation
     if (empty($pass)) {
         $pass_error = "Password is required*";
@@ -49,29 +46,31 @@ if (isset($_POST['login_submit'])) {
                 header("location: user_dashboard.php");
                 exit;
             }
-            // Check for doctor login
-            elseif (mysqli_num_rows($doctor_result) == 1) {
-                $doctor = mysqli_fetch_assoc($doctor_result);
-                if (password_verify($pass, $doctor['doctor_password'])) {
-                    $_SESSION['doctor_id'] = $doctor['did'];
-                    header("location: doctor_dashboard.php");
-                    exit;
-                }
-                // Check for admin login
-                elseif (mysqli_num_rows($admin_result) == 1) {
-                    $admin = mysqli_fetch_assoc($admin_result);
-                    if (password_verify($pass, $admin['admin_password'])) {
-                        $_SESSION['admin_id'] = $admin['admin_id'];
-                        header("location: admin_dashboard.php");
-                        exit;
-                    } else {
-                        $pass_error = "Incorrect password";
-                    }
-                } else {
-                    $error_msg = "No account found. Please register.";
-                }
+        }
+        // Check for doctor login
+        elseif (mysqli_num_rows($doctor_result) == 1) {
+            $doctor = mysqli_fetch_assoc($doctor_result);
+            if (password_verify($pass, $doctor['doctor_password'])) {
+                $_SESSION['doctor_id'] = $doctor['did'];
+                header("location: doctor_dashboard.php");
+                exit;
             }
         }
+        // Check for admin login
+        elseif (mysqli_num_rows($admin_result) == 1) {
+            $admin = mysqli_fetch_assoc($admin_result);
+            if (password_verify($pass, $admin['admin_password'])) {
+                $_SESSION['admin_id'] = $admin['admin_id'];
+                header("location: admin_dashboard.php");
+                exit;
+            } else {
+                $pass_error = "Incorrect password";
+            }
+        } else {
+            $error_msg = "No account found. Please register.";
+        }
+
+
 
     }
 }
